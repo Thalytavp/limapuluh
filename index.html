@@ -20,7 +20,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -34,6 +34,355 @@
 
         * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overscroll-behavior-y: none;
+        }
+
+        body {
+            background-color: var(--rich-black);
+            font-family: 'Manrope', sans-serif;
+            margin: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .container::-webkit-scrollbar { display: none; }
+
+        /* --- STRUKTUR HALAMAN --- */
+        section {
+            height: 100dvh;
+            width: 100%;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            
+            /* --- UPDATED: LEBIH MEPET --- */
+            /* Angkanya dikecilin drastis biar 'gap' ke layar jadi tipis banget */
+            /* Min 10px (biar ga nempel bezel), Max 30px */
+            padding: clamp(10px, 3vmin, 30px); 
+            
+            overflow: hidden;
+        }
+
+        /* Frame Estetik */
+        .frame-content {
+            width: 100%;
+            height: 100%;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            /* Double border tetep tebel biar kelihatan */
+            border: double clamp(6px, 1.5vmin, 12px) currentColor; 
+            
+            padding: clamp(1rem, 4vmin, 3rem);
+            animation: borderPulse 4s infinite alternate ease-in-out;
+            
+            overflow-y: auto; 
+            scrollbar-width: none;
+        }
+        .frame-content::-webkit-scrollbar { display: none; }
+
+        /* --- TIPOGRAFI --- */
+        h1, h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        /* Font Size Diperkecil */
+        h1 { font-size: clamp(1.5rem, 5vw + 0.8rem, 3.5rem); } 
+        h2 { font-size: clamp(1.2rem, 4vw + 0.8rem, 2.5rem); }
+        
+        p {
+            font-family: 'Manrope', sans-serif;
+            /* Font Size Diperkecil */
+            font-size: clamp(0.85rem, 1.6vh + 0.2vw, 1.05rem);
+            font-weight: 500;
+            line-height: 1.6;
+            max-width: 900px;
+            white-space: pre-line;
+            opacity: 1;
+            margin-top: 0.5rem;
+        }
+
+        /* --- ANIMASI --- */
+        .animate-block {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        section.active .animate-block {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.3s; }
+
+        .line {
+            width: clamp(40px, 10vw, 80px);
+            height: 4px;
+            background: currentColor;
+            margin: clamp(0.8rem, 2vh, 1.5rem) auto;
+            opacity: 0.8;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        @keyframes borderPulse {
+            0% { opacity: 0.7; transform: scale(0.995); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- WARNA HALAMAN --- */
+        .page-1 { background-color: var(--deep-navy); color: var(--warm-tan); }
+        .page-1 h1 { color: var(--light-cream); }
+        
+        .page-2 { background-color: var(--light-cream); color: var(--deep-navy); }
+        .page-3 { background-color: var(--warm-tan); color: var(--rich-black); }
+        .page-4 { background-color: var(--rich-black); color: var(--warm-tan); }
+        .page-5 { background-color: var(--deep-navy); color: var(--light-cream); }
+        .page-6 { background-color: var(--light-cream); color: var(--deep-navy); }
+        
+        .page-final {
+            background-color: var(--rich-black);
+            color: var(--light-cream);
+        }
+
+        /* Khusus Halaman Terakhir */
+        .page-final p {
+            text-align: left;
+            width: 100%;
+        }
+
+        .page-final .frame-content {
+            border: double clamp(6px, 1.5vmin, 12px) var(--deep-navy);
+            width: 100%; 
+            height: 100%;
+            justify-content: flex-start;
+            padding-top: 5vh;
+            animation: none;
+        }
+
+        /* --- HINT --- */
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--light-cream);
+            mix-blend-mode: difference;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            animation: floatUp 2s infinite;
+            z-index: 99;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        @keyframes floatUp {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -10px); }
+        }
+
+        /* --- MEDIA QUERY KHUSUS --- */
+        @media (max-height: 500px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.2rem; }
+            p { font-size: 0.8rem; line-height: 1.4; white-space: normal; }
+            .frame-content { padding: 1rem; justify-content: flex-start; }
+            section { padding: 0.5rem; }
+            .line { margin: 0.5rem auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-hint">SWIPE UP</div>
+
+    <div class="container">
+        
+        <section class="page-1">
+            <div class="frame-content">
+                <h1 class="animate-block">Persembahan<br>5 puisi untuk<br>50 tahun usia Bu Dewi</h1>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">(sengaja cuman 5, kalo 50 nerbitin buku dong jadinya, hehe)<br>tentang Bu Dewi, duha, dan rindu yang tak kunjung temu<br>selamat berbuka puisi</p>
+            </div>
+        </section>
+
+        <section class="page-2">
+            <div class="frame-content">
+                <h2 class="animate-block">01</h2>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">
+                    saat pagi membangunkan kerasnya ambisi
+                    kucari lembut hangatnya sinar mentari
+                    tak tahu mesti ke musala yang mana lagi
+                    kepada empat rakaat duha aku kembali
+
+                    telah kucoba duha di berbagai musala
+                    tapi musala sma dua tak bisa dilupa
+                    karena saat mata saling menyapa
+                    ada asa yang mulai menyala
+                </p>
+            </div>
+        </section>
+
+        <section class="page-3">
+            <div class="frame-content">
+                <h2 class="animate-block">02</h2>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">
+                    ketika terhalang jarak dan waktu
+                    apa yang bisa dirasa selain rindu
+                    nampak awan ikut murung
+                    gerimis pun tak terbendung
+                    embusan angin bersenandung 
+                    nelangsa hati gagal berkunjung
+                </p>
+            </div>
+        </section>
+
+        <section class="page-4">
+            <div class="frame-content">
+                <h2 class="animate-block">03</h2>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">
+                    beberapa bulan belakangan
+                    hangat senja gurau sirna perlahan
+                    dingin mulai terasa sepanjang malam
+                    mungkin awan sedang melepas rindunya kepada bumi
+                    semoga rindu itu segera berlalu lantas reda
+                    agar aku dan kamu bisa bertemu juga
+                </p>
+            </div>
+        </section>
+
+        <section class="page-5">
+            <div class="frame-content">
+                <h2 class="animate-block">04</h2>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">
+                    di antara pilunya jemu aku termangu
+                    perlu berapa tunggu untuk sebuah temu
+                    sampai pada akhirnya aku percaya 
+                    semua akan indah pada puspita
+                </p>
+            </div>
+        </section>
+
+        <section class="page-6">
+            <div class="frame-content">
+                <h2 class="animate-block">05</h2>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">
+                    selagi mentari masih terbit dari timur
+                    hal-hal baik akan selalu panjang umur
+                    meski telah tiba senja di ufuk barat
+                    hal-hal baik pasti akan selalu diberi sehat
+
+                    lima puluh bukanlah angka yang sedikit
+                    aku terima kasihmu yang seluas langit
+                    atas bait-bait yang selesai kurakit
+                    izinkan aku untuk pamit
+                </p>
+            </div>
+        </section>
+
+        <section class="page-final">
+            <div class="frame-content">
+                <h1 class="animate-block">Selamat memasuki 50 tahun <br>Bu Dewi!</h1>
+                <p class="animate-block delay-2">
+                    Semakin menua semakin bahagia, lancar rezekinya, bermanfaat untuk orang lain, sehat dan sukses selalu.
+                    
+                    Bu Dewi masih ingat janji saya di ulang tahun Bu Dewi yang ke 48? it's been two years... menurut Bu Dewi gimana? saya berhasil gak sejauh ini? semoga berhasil ya, saya udah berusaha banget buat nahan diri biar gak sering-sering ke rumah Bu Dewi, awal-awal si jelas berat, but I remember that I was fine before I met you, it means I should be fine without you, right?
+                    Bu Dewi akan tetap dan selalu menjadi mentari buat saya, kalo di langit ada matahari, di bumi ada Bu Dewi
+                    
+                    terima kasih untuk semua hal-hal baik yang pernah Bu Dewi kasih selama ini, mulai dari kasih ilmu, kasih sayang, kasih waktu, kasih an dan kasih-kasih lain yang gak bisa saya sebutkan satu per satu
+                    terima kasih juga atas waktu yang selalu luang saat saya datang dan senyum yang selalu ramah saat saya ke rumah padahal mungkin saja Bu Dewi sedang lelah, aku terima kasihmu yang seluas langit pokoknya, hehe...
+
+                    cari cumi di pasar baru, beli cabe jangan lupa
+                    oke Bu Dewi, sampai sini dulu, kalo rame, lanjut part 2
+                    <br><br>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Fungsi Confetti
+        function triggerConfetti() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            var random = function(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) { return clearInterval(interval); }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollHint = document.querySelector('.scroll-hint');
+            let hasFiredConfettiStart = false;
+            let hasFiredConfettiEnd = false;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        if (entry.target.classList.contains('page-final')) {
+                            scrollHint.innerText = "END OF PAGE";
+                            scrollHint.style.opacity = '0';
+                            if (!hasFiredConfettiEnd) { triggerConfetti(); hasFiredConfettiEnd = true; }
+                        } else {
+                            scrollHint.innerText = "SWIPE UP";
+                            scrollHint.style.opacity = '1';
+                        }
+                        if (entry.target.classList.contains('page-1') && !hasFiredConfettiStart) {
+                            triggerConfetti();
+                            hasFiredConfettiStart = true;
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('section').forEach(s => observer.observe(s));
+        });
+    </script>
+
+</body>
+</html>
             padding: 0;
             box-sizing: border-box;
         }
