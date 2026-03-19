@@ -20,7 +20,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -44,7 +44,7 @@
 
         body {
             background-color: var(--rich-black);
-            font-family: 'Manrope', sans-serif;
+            font-family: 'Lora', serif; /* Ubah ke Lora */
             margin: 0;
             width: 100%;
             height: 100vh;
@@ -76,8 +76,6 @@
             position: relative;
             
             /* --- UPDATED: LEBIH MEPET --- */
-            /* Angkanya dikecilin drastis biar 'gap' ke layar jadi tipis banget */
-            /* Min 10px (biar ga nempel bezel), Max 30px */
             padding: clamp(10px, 3vmin, 30px); 
             
             overflow: hidden;
@@ -93,7 +91,6 @@
             justify-content: center;
             align-items: center;
             
-            /* Double border tetep tebel biar kelihatan */
             border: double clamp(6px, 1.5vmin, 12px) currentColor; 
             
             padding: clamp(1rem, 4vmin, 3rem);
@@ -106,10 +103,10 @@
 
         /* --- TIPOGRAFI --- */
         h1, h2 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900;
+            font-family: 'Playfair Display', serif; /* Ubah ke Playfair Display */
+            font-weight: 800;
             margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
-            letter-spacing: -0.5px;
+            letter-spacing: 0px; /* Disesuaikan biar font serif lebih rapi */
             text-transform: uppercase;
             line-height: 1.1;
         }
@@ -118,7 +115,7 @@
         h2 { font-size: clamp(1.5rem, 5vw + 1rem, 3rem); }
         
         p {
-            font-family: 'Manrope', sans-serif;
+            font-family: 'Lora', serif; /* Ubah ke Lora */
             font-size: clamp(1rem, 1.9vh + 0.3vw, 1.2rem);
             font-weight: 500;
             line-height: 1.6;
@@ -126,6 +123,12 @@
             white-space: pre-line;
             opacity: 1;
             margin-top: 0.5rem;
+        }
+
+        /* Styling tambahan untuk rata kiri sesuai request */
+        p.animate-block.delay-2 {
+            text-align: left;
+            width: 100%; /* Biar ngelebar penuhin frame dan rata kirinya pas */
         }
 
         /* --- ANIMASI --- */
@@ -172,11 +175,6 @@
         }
 
         /* Khusus Halaman Terakhir */
-        .page-final p {
-            text-align: left;
-            width: 100%;
-        }
-
         .page-final .frame-content {
             border: double clamp(6px, 1.5vmin, 12px) var(--deep-navy);
             width: 100%; 
@@ -196,8 +194,8 @@
             mix-blend-mode: difference;
             font-size: 0.7rem;
             letter-spacing: 2px;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif; /* Biar senada */
+            font-weight: 800;
             animation: floatUp 2s infinite;
             z-index: 99;
             pointer-events: none;
@@ -287,6 +285,101 @@
                 <div class="line animate-block delay-1"></div>
                 <p class="animate-block delay-2">
                     di antara pilunya jemu aku termangu
+                    perlu berapa tunggu untuk sebuah temu
+                    sampai pada akhirnya aku percaya 
+                    semua akan indah pada puspita
+                </p>
+            </div>
+        </section>
+
+        <section class="page-6">
+            <div class="frame-content">
+                <h2 class="animate-block">05</h2>
+                <div class="line animate-block delay-1"></div>
+                <p class="animate-block delay-2">
+                    selagi mentari masih terbit dari timur
+                    hal-hal baik akan selalu panjang umur
+                    meski telah tiba senja di ufuk barat
+                    hal-hal baik pasti akan selalu diberi sehat
+
+                    lima puluh bukanlah angka yang sedikit
+                    aku terima kasihmu yang seluas langit
+                    atas bait-bait yang selesai kurakit
+                    izinkan aku untuk pamit
+                </p>
+            </div>
+        </section>
+
+        <section class="page-final">
+            <div class="frame-content">
+                <h1 class="animate-block">Selamat memasuki 50 tahun <br>Bu Dewi!</h1>
+                <p class="animate-block delay-2">
+                    Semakin menua semakin bahagia, lancar rezekinya, bermanfaat untuk orang lain, sehat dan sukses selalu.
+                    
+                    Bu Dewi masih ingat janji saya di ulang tahun Bu Dewi yang ke 48? it's been two years... menurut Bu Dewi gimana? saya berhasil gak sejauh ini? semoga berhasil ya, saya udah berusaha banget buat nahan diri biar gak sering-sering ke rumah Bu Dewi, awal-awal si jelas berat, but I remember that I was fine before I met you, it means I should be fine without you, right?
+                    Bu Dewi akan tetap dan selalu menjadi mentari buat saya, kalo di langit ada matahari, di bumi ada Bu Dewi
+                    
+                    terima kasih untuk semua hal-hal baik yang pernah Bu Dewi kasih selama ini, mulai dari kasih ilmu, kasih sayang, kasih waktu, kasih an dan kasih-kasih lain yang gak bisa saya sebutkan satu per satu
+                    terima kasih juga atas waktu yang selalu luang saat saya datang dan senyum yang selalu ramah saat saya ke rumah padahal mungkin saja Bu Dewi sedang lelah, aku terima kasihmu yang seluas langit pokoknya, hehe...
+
+                    cari cumi di pasar baru, beli cabe jangan lupa
+                    oke Bu Dewi, sampai sini dulu, kalo rame, lanjut part 2
+                    <br><br>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Fungsi Confetti
+        function triggerConfetti() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            var random = function(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) { return clearInterval(interval); }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollHint = document.querySelector('.scroll-hint');
+            let hasFiredConfettiStart = false;
+            let hasFiredConfettiEnd = false;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        if (entry.target.classList.contains('page-final')) {
+                            scrollHint.innerText = "END OF PAGE";
+                            scrollHint.style.opacity = '0';
+                            if (!hasFiredConfettiEnd) { triggerConfetti(); hasFiredConfettiEnd = true; }
+                        } else {
+                            scrollHint.innerText = "SWIPE UP";
+                            scrollHint.style.opacity = '1';
+                        }
+                        if (entry.target.classList.contains('page-1') && !hasFiredConfettiStart) {
+                            triggerConfetti();
+                            hasFiredConfettiStart = true;
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('section').forEach(s => observer.observe(s));
+        });
+    </script>
+
+</body>
+</html>
+ngu
                     perlu berapa tunggu untuk sebuah temu
                     sampai pada akhirnya aku percaya 
                     semua akan indah pada puspita
